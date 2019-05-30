@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Exercise</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="some/url" method="POST">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id=firstName name="firstName" placeholder="John" required>
+            <label for="secondName">Second Name</label>
+            <input type="text" id=secondName name="secondName" placeholder="Doe" required>
+        </div>
+        <div>
+            <label for="male">Male</label>
+            <input type="radio" id=male name=sex>
+            <label for="female">Female</label>
+            <input type="radio" id=female  name=sex>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="your email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="your password" required pattern=".{5,}"  title="5 characters minimum">
+        </div>
+        <div>
+            <label for="birthday">Birthday:</label>
+            <input type="date" name="birthday" id="birthday">
+        </div>
+        <div>
+            <label for="year">Alt Birthday:</label>
+            <select name="year" id="year">
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+            </select>
+            <select name="month" id="month">
+                    <option value="1">1</option>
+                    <option value="12">12</option>
+            </select>
+            <select name="day" id="day">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+            </select>
+        </div>
+        <div>
+            <label for="agree">I agree to the T&C's</label>
+            <input type="checkbox" name="agree" id="agree">
+        </div>
+        <div>
+            <!-- <button>Submit</button> -->
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</body>
+</html>
