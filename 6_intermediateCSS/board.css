@@ -1,0 +1,69 @@
+/* I think my solution is more graceful then the one provided by the instructor,
+in his solution he gave certain td elements classes to refer to, then added styles
+for .vertical and .horizontal classes to draw the lines.horizontal
+
+His code is slightly more compact, but to change the properties of the line you
+draw you then have to do it in more than one place
+
+In this case, you just have to change the td properties, which sets all borders,
+and then the ones we dont want are over written. */
+
+
+
+
+body{
+    text-align: center
+}
+
+h1{
+    font-size: 5em;
+}
+
+
+table{
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    border: solid black 2px;
+    width: 250px;
+    height: 250px;
+}
+
+tr:nth-of-type(1)  td:nth-of-type(1) {
+    border-left:  transparent 0 none;
+    border-top: transparent 0 none;
+}
+
+tr:nth-of-type(1)  td:nth-of-type(2) {
+    border-top: transparent 0 none;
+}
+
+tr:nth-of-type(1)  td:nth-of-type(3) {
+    border-top: transparent 0 none;
+    border-right:  transparent 0 none;
+}
+
+tr:nth-of-type(2)  td:nth-of-type(1) {
+    border-left:  transparent 0 none;
+}
+
+tr:nth-of-type(2)  td:nth-of-type(3) {
+    border-right:  transparent 0 none;
+}
+
+tr:nth-of-type(3)  td:nth-of-type(1) {
+    border-left:  transparent 0 none;
+    border-bottom: transparent 0 none;
+}
+
+tr:nth-of-type(3)  td:nth-of-type(2) {
+    border-bottom: transparent 0 none;
+}
+
+tr:nth-of-type(3)  td:nth-of-type(3) {
+    border-bottom: transparent 0 none;
+    border-right:  transparent 0 none;
+}
