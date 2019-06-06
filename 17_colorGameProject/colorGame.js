@@ -15,8 +15,7 @@ for (var i = 0; i < modeBtns.length; i++) {
             modeBtns[i].classList.remove("selected");
         }
         this.classList.add("selected");
-
-        numSqrs = 3 + numSqrs % 6; // can be 3 or 6
+        this.textContent === "Easy" ? numSqrs = 3 : numSqrs = 6;
         reset();
     });
 }
