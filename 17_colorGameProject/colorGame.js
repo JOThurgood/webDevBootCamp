@@ -11,8 +11,13 @@ var modeBtns = document.querySelectorAll(".mode")
 init();
 
 function init() {
+    initButtons(); // event listeners etc
+    initSquares();
+    reset(); // Initial color selection + disp
+}
 
-    // Mode  buttons event listners
+function initButtons() {
+    resetButton.addEventListener("click", reset);
     for (var i = 0; i < modeBtns.length; i++) {
         modeBtns[i].addEventListener("click", function () {
             // deselect all first
@@ -24,8 +29,9 @@ function init() {
             reset();
         });
     }
+}
 
-    // Square click listners
+function initSquares() {
     for(var i = 0; i < squares.length; i++){        
         squares[i].addEventListener("click", function () {
             var clickedColor = this.style.backgroundColor;
@@ -40,12 +46,6 @@ function init() {
             }
         });
     }
-
-    // reset button click listner
-    resetButton.addEventListener("click", reset);
-
-    // Initial color selection + disp
-    reset();
 }
 
 function reset() {
