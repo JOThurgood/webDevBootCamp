@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery Exercise 1</title>
+</head>
+<body>
+
+    <div>Div 1</div>
+    <div class="highlight">Div 2</div>
+    <div id="third">Div 3</div>
+    <div class="highlight">Div 4</div>
+
+    <h2>Instructions</h2>
+    <ul>
+        <li>Correctly Include jQuery</li>
+        <li>Select all divs and give purple bkgd</li>
+        <li>Select divs with highlight class make them 200px wide</li>
+        <li>Select div with id third and give orange border</li>
+        <li>Bonus: select 1st div only and change font clr to pink</li>
+    </ul>
+
+    <h2>Solution (in console)</h2>
+
+    <ul>
+        <li>$("div").css("background","purple")</li>
+        <li>$(".highlight").css("width","200px")</li>
+        <li>$("#third").css("border","orange solid 2px")</li>
+        <li>$("div.first-of-type").css("color","pink")</li>
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+</body>
+</html>
