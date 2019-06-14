@@ -17,6 +17,14 @@ ul {
 body {
     font-family: roboto;
 }
+
+li {
+    background: white; 
+}
+
+li:nth-child(2n){
+    background: #f7f7f7;
+}
 #container {
     width: 360px;
     margin: 100px auto;
