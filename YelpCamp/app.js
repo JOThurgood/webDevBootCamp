@@ -16,6 +16,11 @@ app.get("/campgrounds", (req,res) => {
    res.render("campgrounds", {campgrounds: campgrounds});
 });
 
+app.post("/campgrounds", (req,res) => {
+    res.send("you hit the post route")
+    // get data from form and add to campground array
+    // redirect back to campgrounds page
+});
 
 const port = process.env.PORT || 4000;
 
