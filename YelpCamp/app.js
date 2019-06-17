@@ -4,6 +4,20 @@ var bodyParser = require("body-parser");
 
 var campgrounds = [
     {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
+    {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
     {name: "campsite2", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"}
  ];
 
