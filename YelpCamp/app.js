@@ -1,6 +1,23 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const result = require('dotenv').config();
+if (result.error) {
+    throw result.error
+}   
+//   console.log(result.parsed)
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb+srv://'+
+    process.env.DB_USER + ':' + process.env.DB_PASS + 
+    '@learningcluster-cldnq.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}).then(()=> {
+    console.log('connected to mongoDB Atlas!')
+}).catch(err => {
+    console.log('ERROR:', err.message)
+})
 
 var campgrounds = [
     {name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
