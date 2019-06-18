@@ -4,3 +4,6 @@ Exercises, code-alongs and projects from [*The Web Developer Bootcamp*](https://
 
 I did most of it, except for the basic javascript introduction (Section 10-14), which I only skimmed and didn't do the exercises since I am already familiar with it.
 
+Contents
+ * fill this out!
+ * `YelpCamp` full stack (MEN - Mongoose, express, node) project. A "yelp" for campgrounds 
