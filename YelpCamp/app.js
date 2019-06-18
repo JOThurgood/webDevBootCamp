@@ -2,8 +2,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const result = require('dotenv').config();
-const mongoose = require('mongoose')
-const Campground = require("./models/campgrounds")
+const mongoose = require('mongoose');
+const Campground = require("./models/campground");
+const seedDB = require("./seeds");
 
 // has dotenv configured correctly?
 if (result.error) {
@@ -29,24 +30,8 @@ mongoose.connect('mongodb+srv://'+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-////// drop the collection (DANGEROUS - DELETE ALL)
-//Campground.collection.drop();
-
-// // Create a dummy campsite without using the create form
-// Campground.create(
-//     {
-//         name: "Woody Hut",
-//         image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg",
-//         description: "Woodland cabin."
-//     }, (err, campground) => {
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("newly created campground");
-//             console.log(campground);
-//         }
-//     }
-// );
+// delete and seed the DB
+seedDB();
 
 // Routes
 
