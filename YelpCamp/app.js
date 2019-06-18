@@ -2,12 +2,15 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const result = require('dotenv').config();
+const mongoose = require('mongoose')
+
+// has dotenv configured correctly?
 if (result.error) {
     throw result.error
 }   
 //   console.log(result.parsed)
-const mongoose = require('mongoose')
 
+// Connect Mongoose to mongoDB Atlas server
 mongoose.connect('mongodb+srv://'+
     process.env.DB_USER + ':' + process.env.DB_PASS + 
     '@learningcluster-cldnq.mongodb.net/yelp_camp?retryWrites=true&w=majority', {
@@ -20,7 +23,6 @@ mongoose.connect('mongodb+srv://'+
 })
 
 // Schema setup
-
 const campgroundSchema = new mongoose.Schema({
     name: String,
     image: String
@@ -28,7 +30,13 @@ const campgroundSchema = new mongoose.Schema({
 
 const Campground = mongoose.model("Campground", campgroundSchema)
 
-// Use this to create a dummy campsite without using the create form
+// setup the view engine
+app.use(bodyParser.urlencoded({extended: true}));
+app.set("view engine", "ejs");
+
+
+//// Create a dummy campsite without using the create form
+//
 // Campground.create(
 //     {
 //         name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"
@@ -42,15 +50,15 @@ const Campground = mongoose.model("Campground", campgroundSchema)
 //     }
 // );
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
+// Routes
 
+// Landing page
 app.get("/", (req,res) => {
     res.render("landing")
 });
 
+// Index - show all campgrounds
 app.get("/campgrounds", (req,res) => {
-    // get all campgrounds from DB
     Campground.find({}, (err,allCampgrounds) => {
         if(err){
             console.log(err);
@@ -60,16 +68,16 @@ app.get("/campgrounds", (req,res) => {
     });
 });
 
+// New - show form to create new campground
 app.get("/campgrounds/new", (req,res) => {
     res.render("new.ejs")
 });
 
+// Create - add new campground to database
 app.post("/campgrounds", (req,res) => {
     var name = req.body.name;
     var image = req.body.image;
     var newCampground = {name: name, image:image}
-    // campgrounds.push(newCampground);
-    // create new and save to DB
     Campground.create(newCampground, (err, newlyCreated)=> {
         if(err){
             console.log(err);
