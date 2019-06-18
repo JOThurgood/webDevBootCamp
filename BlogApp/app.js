@@ -52,12 +52,30 @@ app.get("/", (req,res) => {
     res.redirect("/blogs")
 })
 
+// index
 app.get("/blogs", (req,res) => {
     Blog.find({}, (err,blogs) => {
         if(err){
             console.log("error");
         } else {
             res.render("index", {blogs: blogs});
+        }
+    });
+});
+
+// new
+app.get("/blogs/new", (req,res) => {
+    res.render("new");
+});
+
+// create
+app.post("/blogs", (req,res) => {
+    Blog.create(req.body.blog, (err, newBlog) => {
+        if(err){
+            res.render("new");
+            console.log("create error")
+        } else {
+            res.redirect("/blogs")
         }
     });
 });
