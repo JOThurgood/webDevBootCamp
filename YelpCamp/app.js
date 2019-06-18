@@ -81,7 +81,8 @@ app.get("/campgrounds/new", (req,res) => {
 app.post("/campgrounds", (req,res) => {
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image:image}
+    const description = req.body.description;
+    var newCampground = {name: name, image:image, description: description}
     Campground.create(newCampground, (err, newlyCreated)=> {
         if(err){
             console.log(err);
@@ -93,9 +94,13 @@ app.post("/campgrounds", (req,res) => {
 
 // Show - info about a specific campsite
 app.get("/campgrounds/:id", (req,res) => {
-    // find campground with provided ID
-    // render show template with that campground
-    res.render("show");
+    Campground.findById(req.params.id, (err, foundCampground) =>{
+        if(err){
+            console.log(err);
+        } else {
+            res.render("show", {campground: foundCampground});
+        }
+    });
 });
 
 const port = process.env.PORT || 4000;
