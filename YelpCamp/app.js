@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const result = require('dotenv').config();
 const mongoose = require('mongoose')
+const Campground = require("./models/campgrounds")
 
 // has dotenv configured correctly?
 if (result.error) {
@@ -22,14 +23,7 @@ mongoose.connect('mongodb+srv://'+
     console.log('ERROR:', err.message)
 })
 
-// Schema setup
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
 
-const Campground = mongoose.model("Campground", campgroundSchema)
 
 // setup the view engine
 app.use(bodyParser.urlencoded({extended: true}));
