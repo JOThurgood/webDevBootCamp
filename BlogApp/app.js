@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser")
 const result = require('dotenv').config();
 const mongoose = require("mongoose")
-
+const methodOverride = require("method-override")
 
 // has dotenv configured correctly?
 if (result.error) {
@@ -26,6 +26,7 @@ mongoose.connect('mongodb+srv://'+
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 // schema setup and model config
 const blogSchema = new mongoose.Schema({
@@ -49,7 +50,7 @@ const Blog = mongoose.model("Blog", blogSchema);
 // RESTful routes
 
 app.get("/", (req,res) => {
-    res.redirect("/blogs")
+    res.redirect("/blogs");
 })
 
 // index
@@ -89,6 +90,28 @@ app.get("/blogs/:id", (req,res) => {
             res.render("show", {blog: foundBlog});
         }
     });
+});
+
+// edit
+app.get("/blogs/:id/edit", (req,res) => {
+    Blog.findById(req.params.id, (err, foundBlog) => {
+        if(err) {
+            res.redirect("/blogs");
+        } else{
+            res.render("edit", {blog: foundBlog});
+        }
+    });
+});
+
+// update
+app.put("/blogs/:id", (req,res) => {
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err,updatedBlog) =>{
+        if(err){
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs/" + req.params.id)
+        }
+    } );
 });
 
 // listen
