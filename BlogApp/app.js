@@ -73,9 +73,20 @@ app.post("/blogs", (req,res) => {
     Blog.create(req.body.blog, (err, newBlog) => {
         if(err){
             res.render("new");
-            console.log("create error")
+            console.log("create error");
         } else {
-            res.redirect("/blogs")
+            res.redirect("/blogs");
+        }
+    });
+});
+
+// show
+app.get("/blogs/:id", (req,res) => {
+    Blog.findById(req.params.id, (err, foundBlog) =>{
+        if(err){
+            redirect("/blogs");
+        } else {
+            res.render("show", {blog: foundBlog});
         }
     });
 });
