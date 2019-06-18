@@ -25,7 +25,8 @@ mongoose.connect('mongodb+srv://'+
 // Schema setup
 const campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 const Campground = mongoose.model("Campground", campgroundSchema)
@@ -34,12 +35,15 @@ const Campground = mongoose.model("Campground", campgroundSchema)
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
+////// drop the collection (DANGEROUS - DELETE ALL)
+//Campground.collection.drop();
 
-//// Create a dummy campsite without using the create form
-//
+// // Create a dummy campsite without using the create form
 // Campground.create(
 //     {
-//         name: "campsite", image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"
+//         name: "Woody Hut",
+//         image:"https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg",
+//         description: "Woodland cabin."
 //     }, (err, campground) => {
 //         if(err){
 //             console.log(err);
@@ -85,6 +89,13 @@ app.post("/campgrounds", (req,res) => {
             res.redirect("/campgrounds");
         }
     });
+});
+
+// Show - info about a specific campsite
+app.get("/campgrounds/:id", (req,res) => {
+    // find campground with provided ID
+    // render show template with that campground
+    res.render("show");
 });
 
 const port = process.env.PORT || 4000;
