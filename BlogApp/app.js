@@ -36,9 +36,31 @@ const blogSchema = new mongoose.Schema({
 });
 const Blog = mongoose.model("Blog", blogSchema);
 
+// // Create dummy data
+// Blog.create({
+//     title: "Test Blog",
+//     image: "https://images.unsplash.com/photo-1558981420-c532902e58b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60",
+//     body: "This is the test blog body text. Blah blah blah!"
+// })
+
+// // drop the collection (DANGEROUS - DELETE ALL)
+//Campground.collection.drop();
+
 // RESTful routes
 
+app.get("/", (req,res) => {
+    res.redirect("/blogs")
+})
 
+app.get("/blogs", (req,res) => {
+    Blog.find({}, (err,blogs) => {
+        if(err){
+            console.log("error");
+        } else {
+            res.render("index", {blogs: blogs});
+        }
+    });
+});
 
 // listen
 const port = process.env.PORT || 4000;
