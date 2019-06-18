@@ -114,6 +114,19 @@ app.put("/blogs/:id", (req,res) => {
     } );
 });
 
+// delete
+
+app.delete("/blogs/:id", (req,res) => {
+    Blog.findByIdAndRemove(req.params.id, err => {
+        if(err) {
+            res.redirect("/blogs")
+            console.log("delete err")
+        } else {
+            res.redirect("/blogs")
+        }
+    });
+});
+ 
 // listen
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

@@ -11,9 +11,14 @@
             <div class="description">
                 <p><%- blog.body %></p>
             </div>
+            <a class="ui orange basic button" href="/blogs/<%= blog._id %>/edit"">
+                Edit
+            </a>
+            <form id="delete" method="POST" action="/blogs/<%= blog._id %>?_method=DELETE">
+                <button class="ui red basic button">Delete</button>
+            </form>
         </div>
     </div>
-    <a href="/blogs/<%= blog._id%>">Read More</a>
 </div>
 
 <% include ./partials/footer %>
