@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const result = require('dotenv').config();
 const mongoose = require('mongoose');
 const Campground = require("./models/campground");
+const Comment = require("./models/comment");
 const seedDB = require("./seeds");
 
 // has dotenv configured correctly?
@@ -85,9 +86,34 @@ app.get("/campgrounds/:id", (req,res) => {
 // ==================
 
 app.get("/campgrounds/:id/comments/new", (req,res) => {
-    res.render("comments/new");
+    Campground.findById(req.params.id, (err,campground) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.render("comments/new", {campground: campground});  
+        }
+    });
+
 });
 
+app.post("/campgrounds/:id/comments", (req,res) => {
+    Campground.findById(req.params.id, (err,campground) => {
+        if(err) {
+            console.log(err);
+            res.redirect("/campgrounds");
+        } else {
+            Comment.create(req.body.comment, (err, comment) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect("/campgrounds/" + campground._id);
+                }
+            })
+        }
+    });
+});
 
 const port = process.env.PORT || 4000;
 
