@@ -12,7 +12,7 @@ if (result.error) {
 }   
 //   console.log(result.parsed)
 
-// Connect Mongoose to mongoDB Atlas server
+// Connect mongoose to mongoDB Atlas server
 mongoose.connect('mongodb+srv://'+
     process.env.DB_USER + ':' + process.env.DB_PASS + 
     '@learningcluster-cldnq.mongodb.net/yelp_camp?retryWrites=true&w=majority', {
@@ -24,14 +24,12 @@ mongoose.connect('mongodb+srv://'+
     console.log('ERROR:', err.message)
 })
 
-
-
 // setup the view engine
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 // delete and seed the DB
-seedDB();
+// seedDB();
 
 // Routes
 
@@ -46,14 +44,14 @@ app.get("/campgrounds", (req,res) => {
         if(err){
             console.log(err);
         } else {
-            res.render("index", {campgrounds: allCampgrounds});
+            res.render("campgrounds/index", {campgrounds: allCampgrounds});
         }
     });
 });
 
 // New - show form to create new campground
 app.get("/campgrounds/new", (req,res) => {
-    res.render("new.ejs")
+    res.render("campgrounds/new.ejs")
 });
 
 // Create - add new campground to database
@@ -77,10 +75,19 @@ app.get("/campgrounds/:id", (req,res) => {
         if(err){
             console.log(err);
         } else {
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
         }
     });
 });
+
+// ==================
+// Comments Routes
+// ==================
+
+app.get("/campgrounds/:id/comments/new", (req,res) => {
+    res.render("comments/new");
+});
+
 
 const port = process.env.PORT || 4000;
 
