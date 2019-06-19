@@ -29,7 +29,7 @@ mongoose.connect('mongodb+srv://'+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-// delete and seed the DB
+// delete and seed the DB for some dummy data if necessary
 // seedDB();
 
 // Routes
