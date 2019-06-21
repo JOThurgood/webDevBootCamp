@@ -28,6 +28,7 @@ mongoose.connect('mongodb+srv://'+
 // setup the view engine
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"))
 
 // delete and seed the DB for some dummy data if necessary
 // seedDB();
