@@ -6,7 +6,7 @@ Work in progress.
 
 Anything to do with cats or dogs has been replaced with *Meles Meles*, the superior small mammal. 
 
-[See here](https://github.com/nax3t/webdevbootcamp) 
+[See here for the official source code associated with the course](https://github.com/nax3t/webdevbootcamp) 
 
 Contents
  * Exercises and code-alongs from the various sections (numbered as on Udemy). Most of the js introduction is absent since I already had the basics.
