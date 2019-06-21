@@ -83,6 +83,13 @@ app.post("/login", passport.authenticate("local", {
 }), (req, res) => {
 });
 
+// Logout Route
+
+app.get("/logout", (req,res) => {
+    req.logout();
+    res.redirect("/")
+});
+
 // Listen
 
 const port = process.env.PORT || 4000;
