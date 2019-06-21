@@ -2,8 +2,13 @@
 
 Exercises, code-alongs and projects from [*The Web Developer Bootcamp*](https://www.udemy.com/the-web-developer-bootcamp/).
 
-I did most of it, except for the basic javascript introduction (Section 10-14), which I only skimmed and didn't do the exercises since I am already familiar with it.
+Work in progress. 
+
+Anything to do with cats or dogs has been replaced with *Meles Meles*, the superior small mammal. 
+
+[See here](to see the official source code for the backend projects in the course) 
 
 Contents
- * fill this out!
- * `YelpCamp` full stack (MEN - Mongoose, express, node) project. A "yelp" for campgrounds 
+ * Exercises and code-alongs from the various sections (numbered as on Udemy). Most of the js introduction is absent since I already had the basics.
+ * `YelpCamp` full stack (MEN - Mongoose, express, node) project. A "yelp" for campgrounds. (incomplete)
+ * `mongoDBAtlas` how to hook up to the cloud service for mongoDB instead of using the local database like Colt does in his videos. This is then used in the other projects. Amounts to a bit more boilerplate. 
