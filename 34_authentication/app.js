@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
+const passport = require("passport");
+const bodyParser = require("body-parser");
+const User = require("./models/user");
+const LocalStrategy = require("passport-local");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 // has dotenv configured correctly?
 if (dotenv.error) {
@@ -23,6 +28,20 @@ mongoose.connect('mongodb+srv://'+
 
 app.set('view engine', 'ejs');
 
+app.use(require("express-session")({
+    secret: process.env.MYSECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Routes
+
 app.get("/", (req,res)=>{
     res.render("home");
 });
@@ -30,6 +49,18 @@ app.get("/", (req,res)=>{
 app.get("/secret", (req,res) =>{
     res.render("secret");
 });
+
+// Auth Routes
+
+app.get("/register", (req,res) => {
+    res.render("register");
+});
+
+app.post("/register", (req,res) => {
+    res.send("register post route");
+});
+
+// Listen
 
 const port = process.env.PORT || 4000;
 
