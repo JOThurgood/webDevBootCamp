@@ -172,6 +172,15 @@ app.post("/login", passport.authenticate("local",
         // empty callback, don't actually have to have it typed out as the third argument
 });
 
+// ==================
+// Logout Route
+// ==================
+
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/campgrounds");
+})
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
