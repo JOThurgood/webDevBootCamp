@@ -156,6 +156,22 @@ app.post("/register", (req,res) => {
     });
 })
 
+// ==================
+// Login Routes
+// ==================
+
+app.get("/login", (req,res) => {
+    res.render("login");
+});
+
+app.post("/login", passport.authenticate("local",
+    {
+        successRedirect: "/campgrounds", 
+        failureRedirect: "/login"
+    }), (req,res) => {
+        // empty callback, don't actually have to have it typed out as the third argument
+});
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
