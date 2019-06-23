@@ -36,6 +36,19 @@ app.use(express.static(__dirname + "/public"))
 // delete and seed the DB for some dummy data if necessary
 // seedDB();
 
+// Passport Config
+app.use(require("express-session")({
+    secret: process.env.MYSECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Routes
 
 // Landing page
@@ -118,6 +131,30 @@ app.post("/campgrounds/:id/comments", (req,res) => {
         }
     });
 });
+
+// ==================
+// Auth Routes
+// ==================
+
+// show register form
+app.get("/register", (req,res) => {
+    res.render("register");
+})
+
+app.post("/register", (req,res) => {
+    const newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, (err,user) => {
+        if (err) {
+            console.log(err)
+            return res.render("register");
+        } else {
+            passport.authenticate("local")(req,res, ()=> {
+                console.log("registered new user")
+                res.redirect("/campgrounds");
+            });
+        }
+    });
+})
 
 const port = process.env.PORT || 4000;
 
