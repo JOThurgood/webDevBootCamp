@@ -14,12 +14,12 @@ router.get("/", (req,res) => {
 });
 
 // New - show form to create new campground
-router.get("/new", (req,res) => {
+router.get("/new", isLoggedIn, (req,res) => {
     res.render("campgrounds/new.ejs")
 });
 
 // Create - add new campground to database
-router.post("/", (req,res) => {
+router.post("/", isLoggedIn, (req,res) => {
     var name = req.body.name;
     var image = req.body.image;
     const description = req.body.description;
