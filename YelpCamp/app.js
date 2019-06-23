@@ -1,11 +1,14 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const result = require('dotenv').config();
-const mongoose = require('mongoose');
-const Campground = require("./models/campground");
-const Comment = require("./models/comment");
-const seedDB = require("./seeds");
+const express       = require("express");
+const app           = express();
+const bodyParser    = require("body-parser");
+const result        = require('dotenv').config();
+const mongoose      = require('mongoose');
+const passport      = require("passport");
+const LocalStrategy = require("passport-local");
+const Campground    = require("./models/campground");
+const Comment       = require("./models/comment");
+const User          = require("./models/user");
+const seedDB        = require("./seeds");
 
 // has dotenv configured correctly?
 if (result.error) {
