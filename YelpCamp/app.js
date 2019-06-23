@@ -102,7 +102,7 @@ app.get("/campgrounds/:id", (req,res) => {
 // Comments Routes
 // ==================
 
-app.get("/campgrounds/:id/comments/new", (req,res) => {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, (req,res) => {
     Campground.findById(req.params.id, (err,campground) => {
         if(err){
             console.log(err);
@@ -113,7 +113,7 @@ app.get("/campgrounds/:id/comments/new", (req,res) => {
 
 });
 
-app.post("/campgrounds/:id/comments", (req,res) => {
+app.post("/campgrounds/:id/comments", isLoggedIn, (req,res) => {
     Campground.findById(req.params.id, (err,campground) => {
         if(err) {
             console.log(err);
@@ -180,6 +180,16 @@ app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/campgrounds");
 })
+
+// middlewear
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.redirect("/login");
+    }
+}
 
 const port = process.env.PORT || 4000;
 
