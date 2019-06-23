@@ -10,6 +10,10 @@ const Comment       = require("./models/comment");
 const User          = require("./models/user");
 const seedDB        = require("./seeds");
 
+const commentRoutes     = require("./routes/comments");
+const campgroundRoutes  = require("./routes/campgrounds");
+const indexRoutes       = require("./routes/index");
+
 // has dotenv configured correctly?
 if (result.error) {
     throw result.error
@@ -55,147 +59,9 @@ app.use((req,res,next) => {
     next();
 });
 
-// Routes
-
-// Landing page
-app.get("/", (req,res) => {
-    res.render("landing")
-});
-
-// Index - show all campgrounds
-app.get("/campgrounds", (req,res) => {
-    Campground.find({}, (err,allCampgrounds) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.render("campgrounds/index", {campgrounds: allCampgrounds});
-        }
-    });
-});
-
-// New - show form to create new campground
-app.get("/campgrounds/new", (req,res) => {
-    res.render("campgrounds/new.ejs")
-});
-
-// Create - add new campground to database
-app.post("/campgrounds", (req,res) => {
-    var name = req.body.name;
-    var image = req.body.image;
-    const description = req.body.description;
-    var newCampground = {name: name, image:image, description: description}
-    Campground.create(newCampground, (err, newlyCreated)=> {
-        if(err){
-            console.log(err);
-        } else {
-            res.redirect("/campgrounds");
-        }
-    });
-});
-
-// Show - info about a specific campsite
-app.get("/campgrounds/:id", (req,res) => {
-    Campground.findById(req.params.id).populate("comments").exec( (err, foundCampground) =>{
-        if(err){
-            console.log(err);
-        } else {
-            res.render("campgrounds/show", {campground: foundCampground});
-        }
-    });
-});
-
-// ==================
-// Comments Routes
-// ==================
-
-app.get("/campgrounds/:id/comments/new", isLoggedIn, (req,res) => {
-    Campground.findById(req.params.id, (err,campground) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.render("comments/new", {campground: campground});  
-        }
-    });
-
-});
-
-app.post("/campgrounds/:id/comments", isLoggedIn, (req,res) => {
-    Campground.findById(req.params.id, (err,campground) => {
-        if(err) {
-            console.log(err);
-            res.redirect("/campgrounds");
-        } else {
-            Comment.create(req.body.comment, (err, comment) => {
-                if(err) {
-                    console.log(err);
-                } else {
-                    campground.comments.push(comment);
-                    campground.save();
-                    res.redirect("/campgrounds/" + campground._id);
-                }
-            })
-        }
-    });
-});
-
-// ==================
-// Auth Routes
-// ==================
-
-// show register form
-app.get("/register", (req,res) => {
-    res.render("register");
-})
-
-app.post("/register", (req,res) => {
-    const newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, (err,user) => {
-        if (err) {
-            console.log(err)
-            return res.render("register");
-        } else {
-            passport.authenticate("local")(req,res, ()=> {
-                console.log("registered new user")
-                res.redirect("/campgrounds");
-            });
-        }
-    });
-})
-
-// ==================
-// Login Routes
-// ==================
-
-app.get("/login", (req,res) => {
-    res.render("login");
-});
-
-app.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/campgrounds", 
-        failureRedirect: "/login"
-    }), (req,res) => {
-        // empty callback, don't actually have to have it typed out as the third argument
-});
-
-// ==================
-// Logout Route
-// ==================
-
-app.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/campgrounds");
-})
-
-// is logged in? middlewear
-
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
-        return next();
-    } else {
-        res.redirect("/login");
-    }
-}
+app.use("/",indexRoutes);
+app.use("/campgrounds",campgroundRoutes);
+app.use("/campgrounds/:id/comments",commentRoutes);
 
 const port = process.env.PORT || 4000;
 
