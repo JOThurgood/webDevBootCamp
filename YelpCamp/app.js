@@ -49,6 +49,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// middlewear to pass currentUser to all views
+app.use((req,res,next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 // Routes
 
 // Landing page
@@ -181,7 +187,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/campgrounds");
 })
 
-// middlewear
+// is logged in? middlewear
 
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
