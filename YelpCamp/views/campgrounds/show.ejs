@@ -30,7 +30,7 @@
             </div>
             <div class="well">
                 <div class="text-right">
-                    <a class="btn btn-success" href="/campgrounds/<%=campground.id%>/comments/new"> Add New Comment</a>
+                    <a class="btn btn-success" href="/campgrounds/<%=campground._id%>/comments/new"> Add New Comment</a>
                 </div>
                 <hr>
                 <% campground.comments.forEach( comment => { %>
@@ -39,6 +39,7 @@
                             <strong> <%= comment.author.username %> </strong>
                             <span class="pull-right"> ? days ago </span>
                             <p><%= comment.text %></p>
+                            <a class="btn btn-xs btn-warning" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
                         </div>
                     </div>
                 <% }) %>
