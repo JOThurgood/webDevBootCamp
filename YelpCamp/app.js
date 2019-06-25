@@ -1,14 +1,15 @@
-const express       = require("express");
-const app           = express();
-const bodyParser    = require("body-parser");
-const result        = require('dotenv').config();
-const mongoose      = require('mongoose');
-const passport      = require("passport");
-const LocalStrategy = require("passport-local");
-const Campground    = require("./models/campground");
-const Comment       = require("./models/comment");
-const User          = require("./models/user");
-const seedDB        = require("./seeds");
+const express           = require("express");
+const app               = express();
+const bodyParser        = require("body-parser");
+const result            = require('dotenv').config();
+const mongoose          = require('mongoose');
+const passport          = require("passport");
+const LocalStrategy     = require("passport-local");
+const methodOverride    = require("method-override");
+const Campground        = require("./models/campground");
+const Comment           = require("./models/comment");
+const User              = require("./models/user");
+const seedDB            = require("./seeds");
 
 const commentRoutes     = require("./routes/comments");
 const campgroundRoutes  = require("./routes/campgrounds");
@@ -36,6 +37,7 @@ mongoose.connect('mongodb+srv://'+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
+app.use(methodOverride("_method"));
 
 // delete and seed the DB for some dummy data if necessary
 // seedDB();
