@@ -60,7 +60,6 @@ router.get("/:id/edit", (req,res) => {
 });
 
 // Update
-
 router.put("/:id", (req,res) => {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
         if(err){
@@ -70,6 +69,18 @@ router.put("/:id", (req,res) => {
         }
     });
 });
+
+// Destroy
+router.delete("/:id", (req,res) => {
+    Campground.findByIdAndRemove(req.params.id, err => {
+        if(err){
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
+});
+
 
 // is logged in? middlewear
 
