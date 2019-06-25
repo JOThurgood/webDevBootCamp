@@ -52,7 +52,17 @@ router.put("/:comment_id", (req,res) => {
         if(err){
             res.redirect("back");
         } else {
-            res.redirect("/campgrounds/"+req.params.id)
+            res.redirect("/campgrounds/"+req.params.id);
+        }
+    });
+});
+
+router.delete("/:comment_id", (req,res) => {
+    Comment.findByIdAndRemove(req.params.comment_id, err => {
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("back");
         }
     });
 });
