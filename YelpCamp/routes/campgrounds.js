@@ -50,13 +50,23 @@ router.get("/:id", (req,res) => {
 
 // Edit
 router.get("/:id/edit", (req,res) => {
-    Campground.findById(req.params.id, (err, foundCampground) => {
-        if(err) {
-            res.redirect("/campgrounds");
-        } else {
-            res.render("campgrounds/edit", {campground: foundCampground});
-        }
-    });
+    // logged in?
+    if (req.isAuthenticated()) {
+        Campground.findById(req.params.id, (err, foundCampground) => {
+            if(err) {
+                res.redirect("/campgrounds");
+            } else {
+                // does the user own the campground
+                if (foundCampground.author.id.equals(req.user._id)) {
+                     res.render("campgrounds/edit", {campground: foundCampground});
+                } else{
+                    res.send("you do not have permission to do that")
+                }  
+            }
+        });
+    } else {
+        res.send("You need to be logged in to do that")
+    }
 });
 
 // Update
