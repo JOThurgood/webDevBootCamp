@@ -42,7 +42,8 @@ router.post("/", middlewear.isLoggedIn, (req,res) => {
 router.get("/:id", (req,res) => {
     Campground.findById(req.params.id).populate("comments").exec( (err, foundCampground) =>{
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
             res.render("campgrounds/show", {campground: foundCampground});
         }
@@ -73,42 +74,11 @@ router.delete("/:id", middlewear.checkCampgroundOwnership, (req,res) => {
         if(err){
             res.redirect("/campgrounds");
         } else {
+            req.flash("success", "campground deleted")
             res.redirect("/campgrounds");
         }
     });
 });
 
-// // middlewear
-
-// // is logged in? 
-
-// function isLoggedIn(req, res, next) {
-//     if(req.isAuthenticated()){
-//         return next();
-//     } else {
-//         res.redirect("/login");
-//     }
-// }
-
-// // is authenticated? 
-// function checkCampgroundOwnership (req,res,next) {
-//     // logged in?
-//     if (req.isAuthenticated()) {
-//         Campground.findById(req.params.id, (err, foundCampground) => {
-//             if(err) {
-//                 res.redirect("back");
-//             } else {
-//                 // does the user own the campground
-//                 if (foundCampground.author.id.equals(req.user._id)) {
-//                     next();
-//                 } else{
-//                     res.redirect("back");
-//                 }  
-//             }
-//         });
-//     } else {
-//         res.send("You need to be logged in to do that")
-//     }
-// }
 
 module.exports = router;

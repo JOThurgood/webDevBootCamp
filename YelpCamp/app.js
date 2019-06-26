@@ -3,6 +3,7 @@ const app               = express();
 const bodyParser        = require("body-parser");
 const result            = require('dotenv').config();
 const mongoose          = require('mongoose');
+const flash             = require('connect-flash');
 const passport          = require("passport");
 const LocalStrategy     = require("passport-local");
 const methodOverride    = require("method-override");
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // delete and seed the DB for some dummy data if necessary
 // seedDB();
@@ -55,11 +57,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// middlewear to pass currentUser to all views
+// middlewear to pass currentUser and flashes to all views
 app.use((req,res,next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
+
+
 
 app.use("/",indexRoutes);
 app.use("/campgrounds",campgroundRoutes);

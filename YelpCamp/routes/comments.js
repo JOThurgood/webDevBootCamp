@@ -64,38 +64,10 @@ router.delete("/:comment_id", middlewear.checkCommentOwnership, (req,res) => {
         if(err){
             res.redirect("back");
         } else {
+            req.flash("success", "Comment Deleted")
             res.redirect("back");
         }
     });
 });
 
-// // middlewear
-
-// function isLoggedIn(req, res, next) {
-//     if(req.isAuthenticated()){
-//         return next();
-//     } else {
-//         res.redirect("/login");
-//     }
-// }
-
-// function checkCommentOwnership (req,res,next) {
-//     // logged in?
-//     if (req.isAuthenticated()) {
-//         Comment.findById(req.params.comment_id, (err, foundComment) => {
-//             if(err) {
-//                 res.redirect("back");
-//             } else {
-//                 // does the user own the comment
-//                 if (foundComment.author.id.equals(req.user._id)) {
-//                     next();
-//                 } else {
-//                     res.redirect("back");
-//                 }  
-//             }
-//         });
-//     } else {
-//         res.send("You need to be logged in to do that")
-//     }
-// }
 module.exports = router;
