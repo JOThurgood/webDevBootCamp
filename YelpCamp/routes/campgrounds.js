@@ -51,7 +51,7 @@ router.get("/:id", (req,res) => {
 });
 
 // Edit
-router.get("/:id/edit", middlewear.checkCampgroundOwnership, (req,res) => {
+router.get("/:id/edit", middlewear.isLoggedIn, middlewear.checkCampgroundOwnership, (req,res) => {
     Campground.findById(req.params.id, (err, foundCampground) => {
         res.render("campgrounds/edit", {campground: foundCampground});
     });

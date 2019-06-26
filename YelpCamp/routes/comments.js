@@ -38,7 +38,7 @@ router.post("/", middlewear.isLoggedIn, (req,res) => {
     });
 });
 
-router.get("/:comment_id/edit", middlewear.checkCommentOwnership, (req,res) => {
+router.get("/:comment_id/edit", middlewear.isLoggedIn, middlewear.checkCommentOwnership, (req,res) => {
     Comment.findById(req.params.comment_id, (err, foundComment) => {
         if(err) {
             res.redirect("back");
