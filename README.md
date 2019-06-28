@@ -2,7 +2,8 @@
 
 Exercises, code-alongs and projects from [*The Web Developer Bootcamp*](https://www.udemy.com/the-web-developer-bootcamp/).
 
-Work in progress. 
+Pretty much completely finished - there are a few tweaks to the big 
+project (YelpCamp) to make but my time is better spent elsewhere (e.g. make own webapp project from scratch for a CV item).
 
 Anything to do with cats or dogs has been replaced with *Meles Meles*, the superior small mammal. 
 
